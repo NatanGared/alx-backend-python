@@ -6,9 +6,9 @@ def connect_db():
     """Connect to the MySQL server."""
     try:
         connection = mysql.connector.connect(
-            host='localhost',
-            user='your_username',  # Replace with your MySQL username
-            password='your_password'  # Replace with your MySQL password
+            host='127.0.0.1',
+            user='root',  
+            password='Mynameisrahl1'  
         )
         return connection
     except mysql.connector.Error as err:
@@ -26,9 +26,9 @@ def connect_to_prodev():
     """Connect to the ALX_prodev database."""
     try:
         connection = mysql.connector.connect(
-            host='localhost',
-            user='root',  # Replace with your MySQL username
-            password='Mynameisrahl1',  # Replace with your MySQL password
+            host='127.0.0.1',
+            user='root', 
+            password='Mynameisrahl1',  
             database='ALX_prodev'
         )
         return connection
