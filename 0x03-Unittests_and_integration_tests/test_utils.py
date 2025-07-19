@@ -58,6 +58,7 @@ class TestMemoize(unittest.TestCase):
     @patch.object(TestClass, 'a_method')
     def test_memoize(self, mock_a_method):
         test_instance = self.TestClass()
+        test_instance.a_method = Mock(return_value=42)
 
         result1 = test_instance.a_property()
         result2 = test_instance.a_property()
