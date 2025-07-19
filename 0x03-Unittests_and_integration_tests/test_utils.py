@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 from parameterized import parameterized
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 from unittest.mock import patch, Mock
 
 
@@ -25,8 +25,8 @@ class TestAccessNestedMapExceptions(unittest.TestCase):
         with self.assertRaises(KeyError) as context:
             access_nested_map(nested_map, path)
 
-        expected = f"Key '{path[-1]}' not found in the nested map" if len(path) == 1 else f"Key '{path[-1]}' not found in the nested map under '{path[0]}'"
-        self.assertEqual(str(context.exception), expected)
+        as_expected = f"Key '{path[-1]}' not found in the nested map" if len(path) == 1 else f"Key '{path[-1]}' not found in the nested map under '{path[0]}'"
+        self.assertEqual(str(context.exception), as_expected)
 
 class TestGetJson(unittest.TestCase):
 
@@ -44,6 +44,28 @@ class TestGetJson(unittest.TestCase):
         mock_get.assert_called_once_with(test_url)
 
         self.assertEqual(result, test_payload)
+
+class TestMemoize(unittest.TestCase):
+
+    class TestClass:
+        def a_method(self):
+            return 42
+
+        @memoize
+        def a_property(self):
+            return self.a_method()
+
+    @patch.object(TestClass, 'a_method')
+    def test_memoize(self, mock_a_method):
+        test_instance = self.TestClass()
+
+        result1 = test_instance.a_property()
+        result2 = test_instance.a_property()
+
+        mock_a_method.assert_called_once()
+
+        self.assertEqual(result1, 42)
+        self.assertEqual(result2, 42)
 
 if __name__ == '__main__':
     unittest.main()
