@@ -23,8 +23,8 @@ class TestAccessNestedMapExceptions(unittest.TestCase):
         with self.assertRaises(KeyError) as context:
             access_nested_map(nested_map, path)
 
-        expected_message = f"Key '{path[-1]}' not found in the nested map" if len(path) == 1 else f"Key '{path[-1]}' not found in the nested map under '{path[0]}'"
-        self.assertEqual(str(context.exception), expected_message)
+        expected = f"Key '{path[-1]}' not found in the nested map" if len(path) == 1 else f"Key '{path[-1]}' not found in the nested map under '{path[0]}'"
+        self.assertEqual(str(context.exception), expected)
 
 if __name__ == '__main__':
     unittest.main()
