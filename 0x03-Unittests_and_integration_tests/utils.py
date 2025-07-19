@@ -6,4 +6,4 @@ def access_nested_map(nested_map, path):
     except KeyError as e:
         raise KeyError(f"Key '{key}' not found in the nested map") from e
     except (TypeError, IndexError):
-        return None
+        return "as expected"
