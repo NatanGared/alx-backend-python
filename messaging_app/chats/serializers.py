@@ -16,13 +16,12 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = ['message_id', 'sender', 'conversation', 'message_body', 'sent_at']
 
 class ConversationSerializer(serializers.ModelSerializer):
-    messages = MessageSerializer(many=True, read_only=True)
-    
-    def validate(self, attrs):
-        if len(attrs.get('messages')) > 100:
-            raise serializers.ValidationError("Too many messages in the conversation.")
-        return attrs
+    messages = serializers.SerializerMethodField()
 
     class Meta:
         model = Conversation
         fields = ['conversation_id', 'participants', 'created_at', 'messages']
+
+    def get_messages(self, obj):
+        messages = obj.message_set.all()
+        return MessageSerializer(messages, many=True).data
