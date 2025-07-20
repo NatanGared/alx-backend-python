@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Client module for interacting with GitHub API."""
-
 import requests
 from utils import get_json
 
