@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ConversationViewSet, MessageViewSet
 
-# Create your views here.
+router = DefaultRouter()
+router.register(r'conversations', ConversationViewSet, basename='conversations')
+router.register(r'messages', MessageViewSet, basename='messages')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
