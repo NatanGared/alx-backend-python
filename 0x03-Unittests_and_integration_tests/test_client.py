@@ -10,7 +10,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ("google",),
         ("abc",)
     ])
-    @patch('client.GithubOrgClient.get_json')
+    @patch('client.GithubOrgClient.org', return_value="https://api.github.com/orgs/google")
     def test_org(self, org_name, mock_org):
         github_client = GithubOrgClient()
 
