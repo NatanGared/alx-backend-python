@@ -7,6 +7,7 @@ from client import GithubOrgClient
 import fixtures
 from unittest import TestCase
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """Test class for GithubOrgClient"""
     @parameterized.expand([
@@ -98,7 +99,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
 @parameterized_class([
     {
-        "org_payload": {"repos_url":"https://api.github.com/orgs/repos"},
+        "org_payload": {"repos_url": "https://api.github.com/orgs/repos"},
         "repos_payload": [
             {"name": "repo1", "license": {"key": "apache-2.0"}},
             {"name": "repo2", "license": {"key": "mit"}},
@@ -116,7 +117,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def setUpClass(cls):
         """Start patching requests.get before any tests run"""
         cls.get_patcher = patch("requests.get")
-        cls.mock_get = cls.get_patcher.start()  
+        cls.mock_get = cls.get_patcher.start()
         # Mock org response
         org_response = MagicMock()
         org_response.json.return_value = cls.org_payload
