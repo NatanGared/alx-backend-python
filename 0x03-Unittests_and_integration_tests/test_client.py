@@ -11,7 +11,6 @@ from unittest import TestCase
 
 class TestGithubOrgClient(unittest.TestCase):
     """Test class for GithubOrgClient"""
-
     @parameterized.expand([
         ("google",),
         ("abc",)
@@ -101,7 +100,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
 @parameterized_class([
     {
-        "org_payload": {"repos_url": "https://api.github.com/orgs/testorg/repos"},
+        "org_payload":{"repos_url":"https://api.github.com/orgs/testorg/repos"},
         "repos_payload": [
             {"name": "repo1", "license": {"key": "apache-2.0"}},
             {"name": "repo2", "license": {"key": "mit"}},
@@ -152,3 +151,4 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    
