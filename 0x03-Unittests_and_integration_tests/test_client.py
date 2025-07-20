@@ -4,8 +4,6 @@ from unittest.mock import patch, PropertyMock, MagicMock
 from parameterized import parameterized
 from parameterized import parameterized_class
 from client import GithubOrgClient
-import fixtures
-from unittest import TestCase
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -112,7 +110,6 @@ class TestGithubOrgClient(unittest.TestCase):
 
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     get_patcher = None
-
     @classmethod
     def setUpClass(cls):
         """Start patching requests.get before any tests run"""
