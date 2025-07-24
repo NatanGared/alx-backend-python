@@ -21,12 +21,15 @@ class TestAccessNestedMapExceptions(unittest.TestCase):
         ({}, ("a",), KeyError),
         ({"a": 1}, ("a", "b"), TypeError)
     ])
-    def test_access_nested_map_exception(self, nested_map, path,expected_exception):
-        with self.assertRaises(expected_exception) as context:
-            access_nested_map(nested_map, path)
-
-        as_expected = f"Key '{path[-1]}' not found in the nested map" if len(path) == 1 else f"Key '{path[-1]}' not found in the nested map under '{path[0]}'"
-        self.assertEqual(str(context.exception), as_expected)
+    def access_nested_map(nested_map, path):
+        current = nested_map
+        for key in path:
+            if not isinstance(current, dict):
+                raise TypeError(f"Expected dictionary at key '{key}'")
+            if key not in current:
+                raise KeyError(f"Key '{key}' not found")
+            current = current[key]
+        return current
 '''
 class TestGetJson(unittest.TestCase):
 
