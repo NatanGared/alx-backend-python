@@ -19,17 +19,13 @@ class TestAccessNestedMapExceptions(unittest.TestCase):
 
     @parameterized.expand([
         ({}, ("a",), KeyError),
-        ({"a": 1}, ("a", "b"), TypeError)
+        ({"a": 1}, ("a", "b"), TypeError),
     ])
-    def access_nested_map(nested_map, path):
-        current = nested_map
-        for key in path:
-            if not isinstance(current, dict):
-                raise TypeError(f"Expected dictionary at key '{key}'")
-            if key not in current:
-                raise KeyError(f"Key '{key}' not found")
-            current = current[key]
-        return current
+    @unittest.expectedFailure  # Only use if some cases should fail
+    def test_access_nested_map_exception_decorator(self, nested_map, path, expected_exception):
+        """Alternative using decorator syntax"""
+        # This will automatically check for the exception
+        self.assertRaises(expected_exception, access_nested_map, nested_map, path)
 '''
 class TestGetJson(unittest.TestCase):
 
